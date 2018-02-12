@@ -1,23 +1,54 @@
 import React, { Component } from 'react'
 
 class IndecisionApp extends Component {
-  render() {
 
-    const title = 'Indecision App'
-    const subtitle = 'Put your life in the hands of a computer'
-    const options = [
-      'Celeste',
-      'Hyper Light Drifter',
-      'Briad',
-      'Super Meat Boy',
-      'FEZ'
-    ]
+  constructor(props) {
+    super(props)
+    this.handleRemoveAll = this.handleRemoveAll.bind(this)
+    this.handlePick = this.handlePick.bind(this)
+    this.state = {
+      title: 'Indecision App',
+      subtitle: 'Put your life in the hands of a computer',
+      options: [
+        'Celeste',
+        'Hyper Light Drifter',
+        'Briad',
+        'Super Meat Boy',
+        'FEZ'
+      ]
+    }
+  }
+
+  handleRemoveAll() {
+    this.setState(() => {
+      return {
+        options: []
+      }
+    })
+  }
+
+  handlePick() {
+    const randomNum = (Math.floor(Math.random() * this.state.options.length))
+    const option = this.state.options[randomNum]
+    alert(option)
+  }
+
+  render() {
 
     return (
       <div id="container">
-        <Header title={title} subtitle={subtitle}/>
-        <Action />
-        <Options options={options}/>
+        <Header
+          title={this.state.title}
+          subtitle={this.state.subtitle}
+        />
+        <Action
+          hasOptions={this.state.options.length > 0}
+          handlePick={this.handlePick}
+        />
+        <Options
+          options={this.state.options}
+          handleRemoveAll={this.handleRemoveAll}
+        />
         <AddOption />
       </div>
     )
@@ -43,15 +74,19 @@ class Header extends Component {
 
 class Action extends Component {
 
-  handleAction(e) {
-    alert(e.target.textContent)
-  }
-
   render() {
+
+    const hasOptions = this.props.hasOptions
+    const handlePick = this.props.handlePick
 
     return (
       <div id="action-container">
-        <button onClick={this.handleAction}>What should I do?</button>
+        <button
+          disabled={!hasOptions}
+          onClick={handlePick}
+        >
+        What should I do?
+        </button>
       </div>
     )
 
@@ -60,17 +95,14 @@ class Action extends Component {
 
 class Options extends Component {
 
-  handleRemoveAll(e) {
-    alert(e.target.textContent)
-  }
-
   render() {
 
     const options = this.props.options
+    const handleRemoveAll = this.props.handleRemoveAll
 
     return (
       <div id="options-container">
-        <button onClick={this.handleRemoveAll}>Remove All</button>
+        <button onClick={handleRemoveAll}>Remove All</button>
         {
           options.map(option =>
             <Option key={option} optionText={option}/>
