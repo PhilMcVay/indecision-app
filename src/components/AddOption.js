@@ -18,7 +18,9 @@ class AddOption extends Component {
 
     this.setState( () => ({ error }) )
 
-    e.target.elements.option.value = ''
+    if (!error) {
+      e.target.elements.option.value = ''
+    }
   }
 
   render() {
@@ -27,8 +29,9 @@ class AddOption extends Component {
 
     return (
       <div id="add-option-container">
-        {errorMessage &&
-        <p>{errorMessage}</p>
+        {
+          errorMessage &&
+          <p>{errorMessage}</p>
         }
         <form onSubmit={this.handleAddOption}>
           <input type="text" name="option"/>

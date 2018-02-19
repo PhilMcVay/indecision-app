@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import Header from './components/Header'
 import Action from './components/Action'
 import Options from './components/Options'
-import Option from './components/Option'
 import AddOption from './components/AddOption'
 
 class IndecisionApp extends Component {
@@ -14,8 +13,27 @@ class IndecisionApp extends Component {
     this.handlePick = this.handlePick.bind(this)
     this.handleAddOption = this.handleAddOption.bind(this)
     this.state = {
-      options: props.options
+      options: []
     }
+  }
+
+  componentDidMount() {
+    try {
+      const items = localStorage.getItem('options')
+      const options = JSON.parse(items)
+
+      if (options) {
+        this.setState( () => ({ options }) )
+      }
+    }
+    catch (e) {
+      // Do nothing
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const json = JSON.stringify(this.state.options)
+    localStorage.setItem('options', json)
   }
 
   handleRemoveOption(optionToRemove) {
@@ -61,6 +79,7 @@ class IndecisionApp extends Component {
         />
         <Options
           options={this.state.options}
+          hasOptions={this.state.options.length > 0}
           handleRemoveAll={this.handleRemoveAll}
           handleRemoveOption={this.handleRemoveOption}
         />
@@ -69,10 +88,6 @@ class IndecisionApp extends Component {
     )
 
   }
-}
-
-IndecisionApp.defaultProps = {
-  options: []
 }
 
 export default IndecisionApp

@@ -1,15 +1,20 @@
-import React, { Component } from 'react'
+import React from 'react'
 import Option from './Option'
 
 const Options = (props) => {
 
   const options = props.options
+  const hasOptions = props.hasOptions
   const handleRemoveAll = props.handleRemoveAll
   const handleRemoveOption = props.handleRemoveOption
 
   return (
     <div id="options-container">
-      <button onClick={handleRemoveAll}>Remove All</button>
+      <button disabled={!hasOptions} onClick={handleRemoveAll}>Remove All</button>
+      {
+        !hasOptions &&
+        <p>Add options to the list!</p>
+      }
       {
         options.map(option =>
           <Option
