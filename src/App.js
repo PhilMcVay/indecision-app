@@ -3,6 +3,12 @@ import Header from './components/Header'
 import Action from './components/Action'
 import Options from './components/Options'
 import AddOption from './components/AddOption'
+import styled from 'styled-components'
+
+const AppWrapper = styled.div`
+  min-height: 100vh;
+  background-color: #333845;
+`
 
 class IndecisionApp extends Component {
 
@@ -69,7 +75,7 @@ class IndecisionApp extends Component {
     const subtitle = 'Put your life in the hands of a computer'
 
     return (
-      <div id="container">
+      <AppWrapper>
         <Header
           subtitle={subtitle}
         />
@@ -84,7 +90,7 @@ class IndecisionApp extends Component {
           handleRemoveOption={this.handleRemoveOption}
         />
         <AddOption handleAddOption={this.handleAddOption}/>
-      </div>
+      </AppWrapper>
     )
 
   }
