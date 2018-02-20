@@ -66,7 +66,7 @@ class IndecisionApp extends Component {
       return 'Enter valid value to add option'
     }
     else if (this.state.options.includes(option)) {
-      return (`${option} is already in the list. Pick another game`)
+      return (`${option} is already in the list. Enter another value`)
     }
 
     this.setState( (prevState) => ({ options: prevState.options.concat(option) }) )
