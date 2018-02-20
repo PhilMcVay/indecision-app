@@ -3,12 +3,7 @@ import Header from './components/Header'
 import Action from './components/Action'
 import Options from './components/Options'
 import AddOption from './components/AddOption'
-import styled from 'styled-components'
-
-const AppWrapper = styled.div`
-  min-height: 100vh;
-  background-color: #333845;
-`
+import OptionModal from './components/OptionModal'
 
 class IndecisionApp extends Component {
 
@@ -18,8 +13,10 @@ class IndecisionApp extends Component {
     this.handleRemoveOption = this.handleRemoveOption.bind(this)
     this.handlePick = this.handlePick.bind(this)
     this.handleAddOption = this.handleAddOption.bind(this)
+    this.handleCloseModal = this.handleCloseModal.bind(this)
     this.state = {
-      options: []
+      options: [],
+      selectedOption: undefined
     }
   }
 
@@ -52,10 +49,15 @@ class IndecisionApp extends Component {
     this.setState( () => ({ options: [] }) )
   }
 
+  handleCloseModal() {
+    this.setState( () => ({ selectedOption: undefined }) )
+  }
+
   handlePick() {
     const randomNum = (Math.floor(Math.random() * this.state.options.length))
-    const option = this.state.options[randomNum]
-    alert(option)
+    const selectedOption = this.state.options[randomNum]
+
+    this.setState( () => ({ selectedOption }))
   }
 
   handleAddOption(option) {
@@ -75,7 +77,7 @@ class IndecisionApp extends Component {
     const subtitle = 'Put your life in the hands of a computer'
 
     return (
-      <AppWrapper>
+      <div id="app-container">
         <Header
           subtitle={subtitle}
         />
@@ -90,7 +92,12 @@ class IndecisionApp extends Component {
           handleRemoveOption={this.handleRemoveOption}
         />
         <AddOption handleAddOption={this.handleAddOption}/>
-      </AppWrapper>
+        <OptionModal
+          isOpen={this.state.selectedOption}
+          selectedOption={this.state.selectedOption}
+          handleCloseModal={this.handleCloseModal}
+        />
+      </div>
     )
 
   }

@@ -15,8 +15,12 @@ export const OptionsContainer = styled.div`
   text-align: center;
   color: #A5AFD6;
   background-color: #464C5E;
-  padding: 20px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+
+  p {
+    margin: 0;
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+  }
 `
 
 export const Flex = styled.div`

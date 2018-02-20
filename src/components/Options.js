@@ -31,9 +31,10 @@ const Options = (props) => {
             <p>Add an option to the list to get started!</p>
           }
           {
-              options.map(option =>
+              options.map( (option, index) =>
                 <Option
                 key={option}
+                index={index + 1}
                 optionText={option}
                 handleRemoveOption={handleRemoveOption}
                 />

@@ -5,6 +5,11 @@ export const AddOptionInner = styled.div`
   margin: 0 auto;
   background-color: #464C5E;
   text-align: center;
+
+  p {
+    font-size: 14px;
+    font-style: italic;
+  }
 `
 
 export const Flex = styled.div`
